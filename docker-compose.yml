@@ -40,7 +40,7 @@ services: # define the services
       PMA_HOST: ${DB_HOST} # set the database host
       PMA_USER: ${DB_USER} # set the database user
       PMA_PASSWORD: ${DB_PASSWORD} # set the database password
-      MYSQL_ROOT_PASSWORD: ${ROOT_PASSWORD} # set the root password
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD} # set the root password
     container_name: phpmyadmin # set a name for the container
 
 volumes: # define volumes
