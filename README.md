@@ -14,8 +14,8 @@ This project sets up a WordPress application using Docker with MySQL as the data
 Clone this repository to your local machine:
 
 ```bash
-git clone <your-repository-url>
-cd <your-repository-directory>
+git clone git@github.com:j-caussade/docker-wordpress.git
+cd docker-wordpress
 ```
 
 ### 2. Set Up Environment Variables
