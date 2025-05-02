@@ -12,6 +12,12 @@ services: # define the services
     expose: # expose ports
       - "3306" # expose port 3306
     container_name: db # set a name for the container
+    healthcheck: # define healthcheck
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"] # check if the database is reachable
+      # test interval
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   wordpress: # define the wordpress service
     depends_on: # define dependencies
