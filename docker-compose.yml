@@ -1,0 +1,49 @@
+services: # define the services
+  db: # define the database service
+    image: mysql:latest # use a official mysql image
+    volumes: # mount a volume
+      - ./db:/var/lib/mysql # mount the database volume
+    restart: always # restart the container if it fails
+    environment: # set environment variables
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD} # set the root password
+      MYSQL_DATABASE: ${DB_NAME} # create a database
+      MYSQL_USER: ${DB_USER} # create a user
+      MYSQL_PASSWORD: ${DB_PASSWORD} # set the password for the user
+    expose: # expose ports
+      - "3306" # expose port 3306
+    container_name: db # set a name for the container
+
+  wordpress: # define the wordpress service
+    depends_on: # define dependencies
+      - db # the wordpress service depends on the db service
+    image: wordpress:latest # use a official wordpress image
+    ports: # expose ports
+      - "8080:80" # expose port 8080 on the host to port 80 in the container
+    restart: always # restart the container if it fails
+    environment: # set environment variables
+      WORDPRESS_DB_HOST: ${DB_HOST} # set the database host
+      WORDPRESS_DB_USER: ${DB_USER} # set the database user
+      WORDPRESS_DB_PASSWORD: ${DB_PASSWORD} # set the database password
+      WORDPRESS_DB_NAME: ${DB_NAME} # set the database name
+    volumes: # mount volumes
+      - ./wordpress:/var/www/html # mount the wordpress volume
+    container_name: wordpress # set a name for the container
+
+  phpmyadmin: # define the phpmyadmin service
+    depends_on: # define dependencies
+      - db # the phpmyadmin service depends on the db service
+    image: phpmyadmin/phpmyadmin # use a official phpmyadmin image
+    ports: # expose ports
+      - "8081:80" # expose port 8081 on the host to port 80 in the container
+    restart: always # restart the container if it fails
+    environment: # set environment variables
+      PMA_HOST: ${DB_HOST} # set the database host
+      PMA_USER: ${DB_USER} # set the database user
+      PMA_PASSWORD: ${DB_PASSWORD} # set the database password
+      MYSQL_ROOT_PASSWORD: ${ROOT_PASSWORD} # set the root password
+    container_name: phpmyadmin # set a name for the container
+
+volumes: # define volumes
+  db: # define the database volume
+  wordpress: # define the wordpress volume
+  phpmyadmin: # define the phpmyadmin volume
